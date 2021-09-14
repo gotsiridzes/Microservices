@@ -9,9 +9,9 @@ namespace CommandService.Controllers
     [ApiController]
     public class CommandsController : ControllerBase
     {
-        public ActionResult Index()
+        public CommandsController()
         {
-            return Ok();
+
         }
     }
 }

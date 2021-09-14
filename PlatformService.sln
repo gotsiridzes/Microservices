@@ -13,6 +13,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandService", "CommandService\CommandService.csproj", "{DFF004DC-60C8-4309-AF94-C1210EE73E47}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{8B6D6A18-1A74-4988-9CE5-7715011E0F8A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commands", "Commands", "{3141981C-DEDD-4B72-A479-6EA2941ED915}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{5D7EF4E7-8FB1-4479-AF21-2213BC0D2E7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2A80B656-C128-4C4E-89E4-BF4DABC609EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +38,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DE53249D-8863-413C-8A3B-96241BA98FE3} = {5D7EF4E7-8FB1-4479-AF21-2213BC0D2E7B}
+		{DFF004DC-60C8-4309-AF94-C1210EE73E47} = {3141981C-DEDD-4B72-A479-6EA2941ED915}
+		{3141981C-DEDD-4B72-A479-6EA2941ED915} = {8B6D6A18-1A74-4988-9CE5-7715011E0F8A}
+		{5D7EF4E7-8FB1-4479-AF21-2213BC0D2E7B} = {8B6D6A18-1A74-4988-9CE5-7715011E0F8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {79EE0299-7117-4EE0-AA5B-3118E84FD325}
