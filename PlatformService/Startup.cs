@@ -29,6 +29,7 @@ namespace PlatformService
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddDbContext<AppDbContext>(ops => ops.UseSqlServer("Platform"));
+            Console.WriteLine("Using InMemory Database");
             services.AddDbContext<AppDbContext>(ops => ops.UseInMemoryDatabase("Platform"));
             
             services.AddScoped<IPlatformRepository, PlatformRepository>();

@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatformService", "PlatformService\PlatformService.csproj", "{DE53249D-8863-413C-8A3B-96241BA98FE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlatformService", "PlatformService\PlatformService.csproj", "{DE53249D-8863-413C-8A3B-96241BA98FE3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0D0159C0-2FD2-4482-9C8F-C77C888C0933}"
+	ProjectSection(SolutionItems) = preProject
+		Kubernetes\platforms-depl.yaml = Kubernetes\platforms-depl.yaml
+		platforms-np-depl.yaml = platforms-np-depl.yaml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandService", "CommandService\CommandService.csproj", "{DFF004DC-60C8-4309-AF94-C1210EE73E47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,10 @@ Global
 		{DE53249D-8863-413C-8A3B-96241BA98FE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE53249D-8863-413C-8A3B-96241BA98FE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE53249D-8863-413C-8A3B-96241BA98FE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFF004DC-60C8-4309-AF94-C1210EE73E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFF004DC-60C8-4309-AF94-C1210EE73E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFF004DC-60C8-4309-AF94-C1210EE73E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFF004DC-60C8-4309-AF94-C1210EE73E47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
