@@ -43,6 +43,7 @@ namespace PlatformService
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PlatformService", Version = "v1" });
             });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            Console.WriteLine("Command Service Endpoint: {0}", Configuration["CommandService"]);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -36,7 +36,7 @@ namespace PlatformService.SyncDataServoces.Http
             }
             else
             {
-                Console.WriteLine("Sync POST to Command Service is OK, {0}", response.ReasonPhrase);
+                Console.WriteLine("Sync POST to Command Service is NOT OK, {0}", response.ReasonPhrase);
             }
         }
     }
