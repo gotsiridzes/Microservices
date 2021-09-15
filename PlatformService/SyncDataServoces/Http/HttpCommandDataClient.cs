@@ -29,14 +29,15 @@ namespace PlatformService.SyncDataServoces.Http
                 "application/json");
 
             var response = await _httpClient.PostAsync($"{_configuration["CommandService"]}/api/c/platforms/", httpContent);
-
+            Console.WriteLine($"Sending data to: {_configuration["CommandService"]}/api/c/platforms/");
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Sync POST to Command Service is OK");
             }
             else
             {
-                Console.WriteLine("Sync POST to Command Service is NOT OK, {0}", response.ReasonPhrase);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: Sync POST to Command Service is NOT OK, {0}", response.ReasonPhrase);
             }
         }
     }
