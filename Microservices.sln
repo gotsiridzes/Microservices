@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0D0159C0-2FD2-4482-9C8F-C77C888C0933}"
 	ProjectSection(SolutionItems) = preProject
 		Kubernetes\commands-depl.yaml = Kubernetes\commands-depl.yaml
+		Kubernetes\ingress-srv.yaml = Kubernetes\ingress-srv.yaml
 		Kubernetes\platforms-depl.yaml = Kubernetes\platforms-depl.yaml
 		platforms-np-depl.yaml = platforms-np-depl.yaml
 	EndProjectSection
