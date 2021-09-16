@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Kubernetes\commands-depl.yaml = Kubernetes\commands-depl.yaml
 		Kubernetes\ingress-srv.yaml = Kubernetes\ingress-srv.yaml
 		Kubernetes\local-pvc.yaml = Kubernetes\local-pvc.yaml
+		Kubernetes\mssql-plat-depl.yaml = Kubernetes\mssql-plat-depl.yaml
 		Kubernetes\platforms-depl.yaml = Kubernetes\platforms-depl.yaml
 		platforms-np-depl.yaml = platforms-np-depl.yaml
 	EndProjectSection
