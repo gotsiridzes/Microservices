@@ -23,12 +23,35 @@ namespace CommandService.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<CommandReadDto>> GetCommandsForPlatform(int platformId) =>
-            _repository.PlatformExists(platformId) switch
+        public ActionResult<IEnumerable<CommandReadDto>> GetCommandsForPlatform(int platformId)
+        {
+            Console.WriteLine("Get Commands For Platform");
+            return _repository.PlatformExists(platformId) switch
             {
                 true => Ok(_mapper.Map<IEnumerable<CommandReadDto>>(_repository.GetCommandsForPlatform(platformId))),
                 false => NotFound()
             };
+        }
 
+        [HttpGet("{commandId}", Name = "GetCommandForPlatform")]
+        public ActionResult<CommandReadDto> GetCommandForPlatform(int platformId, int commandId)
+        {
+            Console.WriteLine("Get Command For Platform");
+            if (!_repository.PlatformExists(platformId))
+            {
+                return NotFound();
+            }
+            else
+            { 
+                //TODO should be refactored
+                var command = _repository.GetCommand(platformId, commandId);
+
+                return command switch
+                {
+                    null => NotFound(),
+                    _ => Ok(_mapper.Map<CommandReadDto>(command))
+                };
+            }
+        }
     }
 }
