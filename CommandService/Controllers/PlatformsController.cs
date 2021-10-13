@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using CommandService.Data;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,13 +8,17 @@ using System.Threading.Tasks;
 
 namespace CommandService.Controllers
 {
-    [Route("api/c/[controller]")]
     [ApiController]
+    [Route("api/c/[controller]")]
     public class PlatformsController : ControllerBase
     {
-        public PlatformsController()
-        {
+        private readonly ICommandRepository _repository;
+        private readonly IMapper _mapper;
 
+        public PlatformsController(ICommandRepository repository, IMapper mapper)
+        {
+            _repository = repository;
+            _mapper = mapper;
         }
 
         [HttpPost]
