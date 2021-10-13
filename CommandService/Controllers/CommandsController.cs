@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CommandService.Data;
 using CommandService.DataTransferObjects;
+using CommandService.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace CommandService.Controllers
         public ActionResult<CommandReadDto> GetCommandForPlatform(int platformId, int commandId)
         {
             Console.WriteLine("Get Command For Platform");
+
             if (!_repository.PlatformExists(platformId))
             {
                 return NotFound();
@@ -52,6 +54,31 @@ namespace CommandService.Controllers
                     _ => Ok(_mapper.Map<CommandReadDto>(command))
                 };
             }
+        }
+
+        [HttpPost]
+        public ActionResult<CommandReadDto> CreateCommandForPlatform(int platformId, CommandCreateDto commandDto)
+        {
+            Console.WriteLine("Create Command For Platform");
+
+            if (!_repository.PlatformExists(platformId))
+            {
+                return NotFound();
+            }
+
+            var command = _mapper.Map<Command>(commandDto);
+
+            _repository.CreateCommand(platformId, command);
+            _repository.SaveChanges();
+
+            var commandReadDto = _mapper.Map<CommandReadDto>(command);
+            return CreatedAtRoute(nameof(GetCommandForPlatform), new
+            {
+                platformId = platformId,
+                commandId = commandReadDto.Id,
+                commandReadDto
+            });
+
         }
     }
 }
