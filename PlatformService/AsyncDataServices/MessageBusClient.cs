@@ -2,6 +2,8 @@
 using PlatformService.DataTransferObjects;
 using RabbitMQ.Client;
 using System;
+using System.Text;
+using System.Text.Json;
 
 namespace PlatformService.AsyncDataServices
 {
@@ -37,7 +39,36 @@ namespace PlatformService.AsyncDataServices
 
         public void PublishNewPlatform(PlatformPublishedDto platformPublishedDto)
         {
+            var messageObject = JsonSerializer.Serialize(platformPublishedDto);
+
+            if (_connection.IsOpen)
+            {
+                Console.WriteLine("RabbitMQ connection is open, sending message ...");
+                SendMessage(messageObject);
+            }
+            else
+            {
+                Console.WriteLine("RabbitMQ connection is closed, not sending");
+            }
+        }
+
+        private void SendMessage(string message)
+        {
+            var body = Encoding.UTF8.GetBytes(message);
+            _channel.BasicPublish("trigger", "", null, body);
+            Console.WriteLine($"We Have sent {message}");
+
+        }
+
+        public void Dispose()
+        {
+            Console.WriteLine("MessageBus Disposed");
             
+            if (_channel.IsOpen)
+            {
+                _channel.Close();
+                _connection.Close();
+            }
         }
 
         private void RabbitMq_ConnectionShutDown(object sender, ShutdownEventArgs e)
