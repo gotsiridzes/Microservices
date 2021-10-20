@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PlatformService.Data;
 using PlatformService.DataTransferObjects;
 using PlatformService.Models;
-using PlatformService.SyncDataServoces.Http;
+using PlatformService.SyncDataServices.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
