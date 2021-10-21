@@ -53,6 +53,8 @@ namespace CommandService.Data
             _dbContext.Platforms
             .Any(x => x.Id == platformId);
 
+        public bool ExternalPlatformExists(int externalPlatformId) => _dbContext.Platforms.Any(x => x.ExternalId == externalPlatformId);
+
         #endregion
 
         public bool SaveChanges() => _dbContext.SaveChanges() > 0;
