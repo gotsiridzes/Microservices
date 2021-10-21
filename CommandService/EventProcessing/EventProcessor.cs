@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using CommandService.Data;
 using CommandService.DataTransferObjects;
+using CommandService.Models;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
 
@@ -26,7 +28,43 @@ namespace CommandService.EventProcessing
 
         public void ProcessEvent(string message)
         {
-            throw new System.NotImplementedException();
+            var eventType = DetermineEvent(message);
+            switch (eventType)
+            {
+                case EventType.PlatformPublished:
+                    // TODO 
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void AddPlatform(string platformPublishedMessage)
+        {
+            using (var scope = _scopeFactory.CreateScope())
+            {
+                var repository = scope.ServiceProvider.GetRequiredService<ICommandRepository>();
+
+                var platformPublishedDto = JsonSerializer.Deserialize<PlatformPublishedDto>(platformPublishedMessage);
+
+                try
+                {
+                    var platform = _mapper.Map<Platform>(platformPublishedDto);
+                    if (repository.ExternalPlatformExists(platform.Id))
+                    {
+                        repository.CreatePlatform(platform);
+                        repository.SaveChanges();
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("Platform already exists");
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    System.Console.WriteLine("Could not add Platform object {0}", ex);
+                }
+            }
         }
 
         private EventType DetermineEvent(string notificationMessage)
