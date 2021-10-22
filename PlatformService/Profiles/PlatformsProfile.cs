@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PlatformService.DataTransferObjects;
 using PlatformService.Models;
+using PlatformService.Protos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,16 @@ namespace PlatformService.Profiles
             CreateMap<Platform, PlatformReadDto>();
             CreateMap<PlatformCreateDto, Platform>();
             CreateMap<PlatformReadDto, PlatformPublishedDto>();
+            CreateMap<Platform, GrpcPlatformModel>()
+                .ForMember(
+                    dest => dest.PlatformId, 
+                    ops => ops.MapFrom(src => src.Id))
+                .ForMember(
+                    dest => dest.Name,
+                    ops => ops.MapFrom(src => src.Name))
+                .ForMember(
+                    dest => dest.Publisher,
+                    ops => ops.MapFrom(src => src.Publisher));
         }
     }
 }
