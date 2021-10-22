@@ -1,3 +1,4 @@
+using CommandService.AsyncDataServoces;
 using CommandService.Data;
 using CommandService.EventProcessing;
 using Microsoft.AspNetCore.Builder;
@@ -26,22 +27,20 @@ namespace CommandService
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddHostedService<MessageBusSubscriber>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDbContext<AppDbContext>(ops => ops.UseInMemoryDatabase("CommandInMemoryDb"));
             services.AddScoped<ICommandRepository, CommandRepository>();
             services.AddSingleton<IEventProcessor, EventProcessor>();
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CommandService", Version = "v1" });
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
