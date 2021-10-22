@@ -50,10 +50,11 @@ namespace CommandService.EventProcessing
                 try
                 {
                     var platform = _mapper.Map<Platform>(platformPublishedDto);
-                    if (repository.ExternalPlatformExists(platform.Id))
+                    if (!repository.ExternalPlatformExists(platform.Id))
                     {
                         repository.CreatePlatform(platform);
                         repository.SaveChanges();
+                        System.Console.WriteLine("Platform Added");
                     }
                     else
                     {
