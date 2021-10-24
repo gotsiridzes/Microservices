@@ -62,6 +62,8 @@ namespace CommandService
             {
                 endpoints.MapControllers();
             });
+         
+            Initializer.Seed(app);
         }
     }
 }
