@@ -1,6 +1,7 @@
 using CommandService.AsyncDataServoces;
 using CommandService.Data;
 using CommandService.EventProcessing;
+using CommandService.SyncDataServices.Grpc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,6 +36,7 @@ namespace CommandService
             services.AddDbContext<AppDbContext>(ops => ops.UseInMemoryDatabase("CommandInMemoryDb"));
             services.AddScoped<ICommandRepository, CommandRepository>();
             services.AddSingleton<IEventProcessor, EventProcessor>();
+            services.AddScoped<IPlatformDataClient, PlatformDataClient>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CommandService", Version = "v1" });
