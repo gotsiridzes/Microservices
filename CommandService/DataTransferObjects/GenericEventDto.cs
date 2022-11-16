@@ -1,7 +1,6 @@
-﻿namespace CommandService.DataTransferObjects
+﻿namespace CommandService.DataTransferObjects;
+
+public class GenericEventDto
 {
-    public class GenericEventDto
-    {
-        public string Event { get; set; }
-    }
+    public string Event { get; set; }
 }

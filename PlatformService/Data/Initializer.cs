@@ -1,53 +1,51 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace PlatformService.Data
+namespace PlatformService.Data;
+
+public static class Initializer
 {
-    public static class Initializer
+    public static void Seed(IApplicationBuilder builder, bool isProduction)
     {
-        public static void Seed(IApplicationBuilder builder, bool isProduction)
+        using (var serviceScope = builder.ApplicationServices.CreateScope())
         {
-            using (var serviceScope = builder.ApplicationServices.CreateScope())
+            SeedData(serviceScope.ServiceProvider.GetService<AppDbContext>(), isProduction);
+        }
+    }
+
+    private static void SeedData(AppDbContext dbContext, bool isProduction)
+    {
+        if (isProduction)
+        {
+            Log.Information("Attempting to apply migrations ...");
+            try
             {
-                SeedData(serviceScope.ServiceProvider.GetService<AppDbContext>(), isProduction);
+                dbContext.Database.Migrate();
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Exception occured while applying migrations:\n {0}", ex.ToString());
             }
         }
 
-        private static void SeedData(AppDbContext dbContext, bool isProduction)
+        if (!dbContext.Platforms.Any())
         {
-            if (isProduction)
-            {
-                Console.WriteLine("Attempting to apply migrations ...");
-                try
-                {
-                    dbContext.Database.Migrate();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Exception occured while applying migrations:\n {0}", ex.ToString());
-                }
-            }
+            Log.Information("Seeding Data ...");
 
-            if (!dbContext.Platforms.Any())
-            {
-                Console.WriteLine("Seeding Data ...");
-
-                dbContext.Platforms.AddRange(
-                    new Models.Platform() { Name = "DotNet", Cost = "Free", Publisher = "Microsoft" },
-                    new Models.Platform() { Name = "YouTube", Cost = "Free", Publisher = "Google" },
-                    new Models.Platform() { Name = "MacBook", Cost = "Free", Publisher = "Apple" }
-                );
-                dbContext.SaveChanges();
-            }
-            else
-            {
-                Console.WriteLine("In memory data is already inserted.");
-            }
+            dbContext.Platforms.AddRange(
+                new Models.Platform() { Name = "DotNet", Cost = "Free", Publisher = "Microsoft" },
+                new Models.Platform() { Name = "YouTube", Cost = "Free", Publisher = "Google" },
+                new Models.Platform() { Name = "MacBook", Cost = "Free", Publisher = "Apple" }
+            );
+            dbContext.SaveChanges();
+        }
+        else
+        {
+            Log.Information("In memory data is already inserted.");
         }
     }
 }

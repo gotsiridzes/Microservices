@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PlatformService.SyncDataServices.Http
+namespace PlatformService.SyncDataServices.Http;
+
+public interface ICommandDataClient
 {
-    public interface ICommandDataClient
-    {
-        Task SendPlatformToCommand(PlatformReadDto platform);
-    }
+    Task SendPlatformToCommand(PlatformReadDto platform);
 }

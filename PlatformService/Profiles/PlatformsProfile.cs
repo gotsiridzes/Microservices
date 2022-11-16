@@ -2,30 +2,25 @@
 using PlatformService.DataTransferObjects;
 using PlatformService.Models;
 using PlatformService.Protos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace PlatformService.Profiles
+namespace PlatformService.Profiles;
+
+public class PlatformsProfile : Profile
 {
-    public class PlatformsProfile : Profile
+    public PlatformsProfile()
     {
-        public PlatformsProfile()
-        {
-            CreateMap<Platform, PlatformReadDto>();
-            CreateMap<PlatformCreateDto, Platform>();
-            CreateMap<PlatformReadDto, PlatformPublishedDto>();
-            CreateMap<Platform, GrpcPlatformModel>()
-                .ForMember(
-                    dest => dest.PlatformId, 
-                    ops => ops.MapFrom(src => src.Id))
-                .ForMember(
-                    dest => dest.Name,
-                    ops => ops.MapFrom(src => src.Name))
-                .ForMember(
-                    dest => dest.Publisher,
-                    ops => ops.MapFrom(src => src.Publisher));
-        }
+        CreateMap<Platform, PlatformReadDto>();
+        CreateMap<PlatformCreateDto, Platform>();
+        CreateMap<PlatformReadDto, PlatformPublishedDto>();
+        CreateMap<Platform, GrpcPlatformModel>()
+            .ForMember(
+                dest => dest.PlatformId, 
+                ops => ops.MapFrom(src => src.Id))
+            .ForMember(
+                dest => dest.Name,
+                ops => ops.MapFrom(src => src.Name))
+            .ForMember(
+                dest => dest.Publisher,
+                ops => ops.MapFrom(src => src.Publisher));
     }
 }

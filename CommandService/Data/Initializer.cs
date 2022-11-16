@@ -2,35 +2,33 @@
 using CommandService.SyncDataServices.Grpc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using System.Collections.Generic;
 
-namespace CommandService.Data
+namespace CommandService.Data;
+
+public class Initializer
 {
-    public class Initializer
+    public static void Seed(IApplicationBuilder applicationBuilder)
     {
-        public static void Seed(IApplicationBuilder applicationBuilder)
-        {
-            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
-            {
-                var grpcClient = serviceScope.ServiceProvider.GetService<IPlatformDataClient>();
+        var serviceScope = applicationBuilder.ApplicationServices.CreateScope();
+        var grpcClient = serviceScope.ServiceProvider.GetService<IPlatformDataClient>();
 
-                var platforms = grpcClient.ReturnAllPlatforms();
+        var platforms = grpcClient.ReturnAllPlatforms();
 
-                SeedData(serviceScope.ServiceProvider.GetService<ICommandRepository>(), platforms);
-            }
-        }
+        SeedData(serviceScope.ServiceProvider.GetService<ICommandRepository>(), platforms);
+    }
 
-        private static void SeedData(ICommandRepository repository, IEnumerable<Platform> platforms)
-        {
-            System.Console.WriteLine("Seeding Platforms");
-            foreach (var platform in platforms)
-            {
-                if (!repository.ExternalPlatformExists(platform.ExternalId))
-                {
-                    repository.CreatePlatform(platform);
-                }
-                repository.SaveChanges();
-            }
-        }
+    private static void SeedData(ICommandRepository repository, IEnumerable<Platform> platforms)
+    {
+        Log.Information("Seeding Platforms");
+        //foreach (var platform in platforms)
+        //{
+        //    if (!repository.ExternalPlatformExists(platform.ExternalId))
+        //    {
+        //        repository.CreatePlatform(platform);
+        //    }
+        //    repository.SaveChanges();
+        //}
     }
 }

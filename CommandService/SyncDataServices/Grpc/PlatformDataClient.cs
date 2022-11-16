@@ -1,42 +1,43 @@
 ﻿using AutoMapper;
+using System;
 using CommandService.Models;
 using Grpc.Net.Client;
 using Microsoft.Extensions.Configuration;
 using PlatformService.Protos;
+using Serilog;
 using System.Collections.Generic;
 
-namespace CommandService.SyncDataServices.Grpc
+namespace CommandService.SyncDataServices.Grpc;
+
+public class PlatformDataClient : IPlatformDataClient
 {
-    public class PlatformDataClient : IPlatformDataClient
+    private readonly IConfiguration _configuration;
+    private readonly IMapper _mapper;
+
+    public PlatformDataClient(IConfiguration configuration, IMapper mapper)
     {
-        private readonly IConfiguration _configuration;
-        private readonly IMapper _mapper;
+        _configuration = configuration;
+        _mapper = mapper;
+    }
 
-        public PlatformDataClient(IConfiguration configuration, IMapper mapper)
+    public IEnumerable<Platform> ReturnAllPlatforms()
+    {
+			Log.Information("Calling Grpc Service {0}", _configuration["GrpcPlatform"]);
+        
+        var channel = GrpcChannel.ForAddress(_configuration["GrpcPlatform"]);
+        var client = new GrpcPlatform.GrpcPlatformClient(channel);
+        var request = new GetAllRequest();
+
+        try
         {
-            _configuration = configuration;
-            _mapper = mapper;
+            var reply = client.GetAllPlatforms(request);
+
+            return _mapper.Map<IEnumerable<Platform>>(reply.Platform);
         }
-
-        public IEnumerable<Platform> ReturnAllPlatforms()
+        catch (Exception ex)
         {
-            System.Console.WriteLine("Calling Grpc Service {0}", _configuration["GrpcPlatform"]);
-            
-            var channel = GrpcChannel.ForAddress(_configuration["GrpcPlatform"]);
-            var client = new GrpcPlatform.GrpcPlatformClient(channel);
-            var request = new GetAllRequest();
-
-            try
-            {
-                var reply = client.GetAllPlatforms(request);
-
-                return _mapper.Map<IEnumerable<Platform>>(reply.Platform);
-            }
-            catch (System.Exception ex)
-            {
-                System.Console.WriteLine("Could not call grpc service {0}", ex);
-                return null;
-            }
+            Log.Error("Could not call grpc service {0}", ex);
+            return null;
         }
     }
 }

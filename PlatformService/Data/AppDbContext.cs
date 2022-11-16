@@ -5,14 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PlatformService.Data
+namespace PlatformService.Data;
+
+public class AppDbContext : DbContext
 {
-    public class AppDbContext : DbContext
-    {
-        public DbSet<Platform> Platforms { get; set; }
+    public DbSet<Platform> Platforms { get; set; }
 
-        public AppDbContext(DbContextOptions<AppDbContext> ops) : base(ops)
-        { }
-
-    }
+    public AppDbContext(DbContextOptions<AppDbContext> ops) : base(ops)
+    { }
 }

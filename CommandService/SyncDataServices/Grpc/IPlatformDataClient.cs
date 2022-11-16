@@ -1,10 +1,9 @@
 ﻿using CommandService.Models;
 using System.Collections.Generic;
 
-namespace CommandService.SyncDataServices.Grpc
+namespace CommandService.SyncDataServices.Grpc;
+
+public interface IPlatformDataClient
 {
-    public interface IPlatformDataClient
-    {
-        IEnumerable<Platform> ReturnAllPlatforms();
-    }
+    IEnumerable<Platform> ReturnAllPlatforms();
 }
