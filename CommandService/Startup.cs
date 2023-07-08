@@ -1,4 +1,4 @@
-using CommandService.AsyncDataServoces;
+using CommandService.AsyncDataServices;
 using CommandService.Data;
 using CommandService.EventProcessing;
 using CommandService.SyncDataServices.Grpc;

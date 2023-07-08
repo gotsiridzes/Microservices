@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CommandService.AsyncDataServoces;
+namespace CommandService.AsyncDataServices;
 
 public class MessageBusSubscriber : BackgroundService
 {
@@ -24,7 +24,7 @@ public class MessageBusSubscriber : BackgroundService
     {
         _configuration = configuration;
         _eventProcessor = eventProcessor;
-        TryInternalizeRabbitMQ();
+        TryInternalizeRabbitMq();
     }
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -50,7 +50,7 @@ public class MessageBusSubscriber : BackgroundService
         return Task.CompletedTask;
     }
 
-    protected void TryInternalizeRabbitMQ()
+    protected void TryInternalizeRabbitMq()
     {
         var factory = new ConnectionFactory()
         {
